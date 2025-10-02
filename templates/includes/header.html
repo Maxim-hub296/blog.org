@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark shadow"
+     style="background: linear-gradient(135deg, #081c15 0%, #1b4332 100%);">
+    <div class="container-fluid">
+        <a class="navbar-brand fs-6 fw-semibold text-warning py-0 my-0 text-truncate" href="/">
+            <i class="bi bi-journal-text me-2"></i>
+            <span class="d-none d-sm-inline">Исследования Романтика</span>
+            <span class="d-inline d-sm-none small">Романтика</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'articles:about' %}"><i class="bi bi-person me-1"></i>Об авторе</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'articles:list' %}">
+                        <i class="bi bi-archive me-1"></i>Исследования Романтика
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'articles:excerpts' %}"><i class="bi bi-quote me-1"></i>Выдержки Романтика</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'communication:ask_question' %}"><i class="bi bi-question-circle me-1"></i>Задать вопрос</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'communication:news_letter' %}"><i class="bi bi-envelope me-1"></i>Рассылка</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'communication:feedback' %}"><i class="bi bi-envelope me-1">Связь со мной</i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

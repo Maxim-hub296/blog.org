@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <div class="card shadow-lg border-0 rounded-3 mb-4"
+                     style="background-color: #3a7d44; color: #f0f3e8;">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-chat-square-text-fill fs-3 text-warning me-3"></i>
+                            <h4 class="mb-0 text-warning">Задать вопрос</h4>
+                        </div>
+
+                        <p class="mb-4">
+                            Напиши свой вопрос — я с радостью прочитаю и отвечу, как можно скорее!
+                            Поля: <strong>Email</strong> (чтобы отправить) и <strong>Вопрос</strong>.
+                        </p>
+
+                        <!-- Форма (JS будет обработчик) -->
+                        <form id="ask-form" class="row g-3" novalidate>
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <label for="email" class="form-label">Ваш Email</label>
+                                <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        class="form-control"
+                                        placeholder="example@mail.com"
+                                        required
+                                        aria-describedby="emailHelp"
+                                >
+                                <div id="emailHelp" class="form-text text-light opacity-75">
+                                    Адрес нужен, чтобы я мог ответить — он не будет опубликован.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="question" class="form-label">Вопрос</label>
+                                <textarea
+                                        id="question"
+                                        name="question"
+                                        class="form-control"
+                                        rows="6"
+                                        placeholder="Напиши свой вопрос сюда..."
+                                        required
+                                ></textarea>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-between flex-wrap gap-2">
+                                <!-- Кнопка — используй JS, поэтому type="button" -->
+                                <button type="button" id="send-question-btn" class="btn btn-success">
+                                    <i class="bi bi-send me-2"></i>Отправить
+                                </button>
+
+                                <button type="reset" class="btn btn-outline-light" id="reset-btn">
+                                    Очистить
+                                </button>
+                            </div>
+
+                            <div class="col-12">
+                                <div id="form-message" class="mt-3 text-center" aria-live="polite"></div>
+                            </div>
+                        </form>
+
+                        <!-- Подсказка для небольших экранов -->
+                        <div class="mt-3 text-center text-light opacity-75 small">
+                            На мобильных поля и кнопки подстраиваются автоматически.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('ask-form')
+        const sendBtn = document.getElementById('send-question-btn')
+        const resetBtn = document.getElementById('reset-btn')
+
+        sendBtn.addEventListener('click', () => {
+            const email = document.getElementById("email").value
+            if (!email) {
+                document.getElementById('form-message').innerText = "Почту необходимо ввести"
+                return
+            }
+
+            const question = document.getElementById('question')
+            if (!question) {
+                document.getElementById('form-message').innerText = "Вопрос необходимо ввести"
+                return
+            }
+            const csrftoken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+
+            fetch("/communication/send_question/", {
+                method: "POST",
+                headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+                body: JSON.stringify({sender_mail: email, question: question})
+            })
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('form-message').innerText = data.message
+                })
+
+        })
+
+        resetBtn.addEventListener('click', () => {
+            document.getElementById('email').innerText = "";
+            document.getElementById('question').innerText = "";
+        })
+
+
+
+
+    </script>
+
+
+
+{% endblock %}

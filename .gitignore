@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pkl
+*.so
+
+# Virtualenv
+venv/
+env/
+.venv/
+ENV/
+
+# Django stuff:
+db.sqlite3
+*.log
+*.pot
+*.pyc
+*.mo
+media/
+staticfiles/
+
+# Если статика собирается автоматически, исключаем папку:
+static/
+
+# Django settings (не пушим настройки в репозиторий)
+romanticorg/settings.py
+
+# Миграции (по желанию — можно хранить, если проект общий)
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# IDE и системные файлы
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Тестовые/локальные файловые базы
+*.db
+*.sqlite3

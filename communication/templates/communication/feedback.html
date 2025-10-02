@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-sm-8 col-12">
+            <div class="card shadow-lg border-0 rounded-3 mb-4"
+                 style="background-color: #2d6a4f; color: #f0f3e8;">
+                <div class="card-body p-4 text-center">
+
+                    <h3 class="mb-4 text-warning">Связаться со мной</h3>
+                    <p class="mb-4">Я всегда открыт для диалога. Пишите в Telegram 👇</p>
+
+                    <a href="https://t.me/Wanderer2754"
+                       target="_blank"
+                       class="btn btn-primary btn-lg mb-3 w-100">
+                        Мой Telegram
+                    </a>
+
+                    <a href="{% url 'articles:list' %}"
+                       class="btn btn-success w-100">
+                        На главную
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
