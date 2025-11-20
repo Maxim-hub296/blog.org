@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tz %}
+
+{% block content %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+
+                <!-- Статья -->
+                <div class="card shadow-lg border-0 rounded-3 mb-4"
+                     style="background-color: #3a7d44; color: #f0f3e8;">
+                    <div class="card-body p-4 p-md-5">
+                        <!-- Заголовок статьи -->
+                        <h1 class="card-title mb-3">{{ object.title }}</h1>
+
+                        <!-- Дата публикации -->
+                        <p class="text-end text-light fst-italic mb-3">
+                            {{ object.data|localtime|date:"d M Y H:i" }}
+                        </p>
+
+                        <!-- Контент статьи -->
+                        <div class="card-text mb-4">
+                            {{ object.content|safe }}
+                        </div>
+
+                        <!-- Кнопки -->
+                        <div class="d-flex justify-content-between flex-wrap">
+                            <a href="{% url 'stories:list' %}" class="btn btn-warning mb-2">
+                                На главную
+                            </a>
+                            <a href="{% url 'communication:ask_question' %}" class="btn btn-success mb-2">
+                                Задать вопрос
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

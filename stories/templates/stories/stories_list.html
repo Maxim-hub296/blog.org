@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tz %}
+
+{% block content %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <h1 class="mb-4 text-center text-warning">Истории Романтика</h1>
+
+                {% for story in stories %}
+                    <div class="card shadow-lg border-0 rounded-3 mb-4"
+                         style="background-color: #2d6a4f; color: #f0f3e8;">
+                        <div class="card-body p-4 p-md-5">
+                            <h3 class="card-title">{{ story.title }}</h3>
+                            <p class="card-text">{{ story.anons }}</p>
+                            <p class="text-end text-light fst-italic mb-3">
+                                {{ article.data|localtime|date:"d M Y H:i" }}
+                            </p>
+                            <a href="{% url 'stories:detail' story.id %}" class="btn btn-warning">
+                                Читать
+                            </a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center fs-5">Статей пока нет.</p>
+                {% endfor %}
+
+                <!-- Пагинация (как у выдержек) -->
+                {% if is_paginated %}
+                    <nav aria-label="Навигация по страницам">
+                        <ul class="pagination justify-content-center mt-4">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link bg-success text-light border-0"
+                                       href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                                </li>
+                            {% endif %}
+
+                            <li class="page-item disabled">
+                                <span class="page-link bg-dark text-light border-0">
+                                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+                                </span>
+                            </li>
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link bg-success text-light border-0"
+                                       href="?page={{ page_obj.next_page_number }}">Вперёд</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
