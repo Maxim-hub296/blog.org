@@ -11,7 +11,7 @@ def after_article_save(sender, instance: Article, created, **kwargs):
         print("Пишем письмо")
         emails = list(Address.objects.values_list('email', flat=True))
         send_mail(
-            "Новая статья на romantic.org",
+            "Новая статья на romantic.blog",
             f"""Доброго времени суток! С большим удовольствием сообщаю вам, что я опубликовал новую статью своих исследований "{instance.title}".С нетерпением жду вашего прочтения и нашей дальнейшей беседы. Если вы хотите отписаться от рассылки то зайдите на сайт в раздел "Рассылка". Всего хорошего!""",
             "maxsavikin@gmail.com",
             emails,
